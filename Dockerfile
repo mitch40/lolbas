@@ -14,9 +14,10 @@ RUN apk update && apk add \
         ruby-webrick
 
 RUN gem install \
-        bundler \
+        bundler:1.16.4 \
         kramdown \
-        kramdown-parser-gfm
+        kramdown-parser-gfm \
+        rexml
 
 RUN git clone https://github.com/LOLBAS-Project/LOLBAS-Project.github.io /opt/LOLBAS
 
@@ -24,9 +25,7 @@ WORKDIR /opt/LOLBAS
 
 RUN bundle update --bundler || echo "continue"
 
-RUN printf "\ngem 'kramdown-parser-gfm'"
-RUN cat Gemfile
-
+RUN bundle update kramdown
 RUN bundle update
 RUN make bundle
 
